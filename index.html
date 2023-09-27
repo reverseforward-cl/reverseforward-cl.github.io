@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="RFCL: Reverse Forward Curriculum Learning"
+    />
+    <meta name="keywords" content="Curriculum, Reinforcement Learning, Deep Learning" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Reverse Forward Curriculum Learning for Extreme Demo Efficiency in RL
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./public/index.css" rel="stylesheet" />
+    <link href="./public/media.css" rel="stylesheet" />
+    <link href="./public/sidebars.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="./public/js/base.js"></script>
+  </head>
+
+  <body>
+    <div class="sidebarsWrapper">
+      <div class="sidebars">
+        <a class="barWrapper" clear href="#abstract-a" id="bar2"
+          ><span>Abstract</span>
+          <div class="bar"></div
+        ></a>
+        <a class="barWrapper" clear href="#rfcl-a" id="bar3"
+          ><span>RFCL</span>
+          <div class="bar"></div
+        ></a>
+        <a class="barWrapper" clear href="#results-a" id="bar4"
+          ><span>Results</span>
+          <div class="bar"></div
+        ></a>
+      </div>
+    </div>
+    <main class="content">
+      <section class="heading">
+        <h1 class="title">
+          <span blue>RFCL: </span><span blue>R</span>everse
+          <span blue>F</span>orward <span blue>C</span>urriculum
+          <span blue>L</span>earning for Extreme Demo Efficiency in RL
+        </h1>
+        <!-- <h3>TODO</h3> -->
+        <section class="authors">
+          <ul>
+            <li>Anonymous Authors</li>
+          </ul>
+        </section>
+        <section class="links">
+          <ul>
+            <!-- <a href="TODO" rel="noreferrer" target="_blank">
+              <li>
+                <span class="icon"> <img src="./public/paper.svg" /> </span
+                ><span>Paper</span>
+              </li>
+            </a> -->
+            <!-- <a
+              href="TODO"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <li>
+                <span class="icon"> <img src="./public/video.svg" /> </span
+                ><span>Video</span>
+              </li>
+            </a> -->
+            <!-- <a
+              href="TODO"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <li>
+                <span class="icon">
+                  <img src="./public/github.svg" />
+                </span>
+                <span>Code</span>
+              </li>
+            </a> -->
+            <!-- <a><li>Video</li></a> -->
+          </ul>
+        </section>
+        <a class="anchor" id="abstract-a"></a>
+        <h2>Abstract</h2>
+        <p class="abstract">
+          Reinforcement learning (RL) presents a promising framework to
+          autonomously learn policies through environment interaction to solve
+          tasks, but often requires an infeasible amount of interaction data to
+          solve complex tasks from sparse rewards. One direction has been to
+          augment RL with offline data demonstrating how to solve the desired
+          task, but past work in this area often require a lot of high quality
+          demonstration data that is difficult to obtain especially for domains
+          such as robotics. Our approach consists of a two-stage training
+          process starting with a reverse curriculum followed by a forward
+          curriculum. Unique to our approach compared to past work is the
+          ability to efficiently leverage more than one demonstration
+          efficiently via a per-demonstration reverse curriculum generated via
+          state resets. The result of our reverse curriculum is an initial
+          policy that performs well on a narrow initial state distribution and
+          helps overcome difficult exploration problems. A forward curriculum is
+          then used to accelerate the training of the initial policy to perform
+          well on the full initial state distribution of the task and helps
+          improve demonstration and sample efficiency. We show how the
+          combination of a reverse curriculum and forward curriculum in our
+          method, RFCL, enables significant improvements on demonstration and
+          sample efficiency comparing against various state-of-the-art
+          learning-from-demonstration baselines, even solving previously
+          unsolvable tasks that require high precision and control.
+        </p>
+      </section>
+
+      <section class="head-media">
+        <br />
+        <p class="caption">TODO</p>
+      </section>
+      <a class="anchor" id="rfcl-a"></a>
+      <section class="details">
+        <h2>Reverse Forward Curriculum Learning</h2>
+
+        <p>
+          Below is a simple visual representation of the reverse forward
+          curriculums. The
+          <span style="color: #6096fe">blue arrows</span> represent the given
+          demonstration trajectories (2 in this example), starting from an
+          initial state and moving towards the goal marked by a
+          <span style="color: gold">gold star</span>. Area covered by
+          <span style="color: #48d681">dashed green lines</span> represents
+          states in which agent achieves high return from. Area
+          <span style="color: #ff6060">shaded in red</span> represents the most
+          frequently sampled initial states.
+        </p>
+        <!-- <img src="./public/videos/reverse-cl-demo.gif" width="50%" /> -->
+        <div class="media">
+          <video autoplay="" muted="" loop="" controls>
+            <source
+              src="./public/videos/reverse-cl-demo.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <video autoplay="" muted="" loop="" controls>
+            <source
+              src="./public/videos/forward-cl-demo.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+        <p>
+          On the left is the per-demonstration reverse curriculum, which starts
+          by prioritizing initial states from the demonstration that are close
+          to the goal, which are likely to yield sparse reward signals. The
+          reverse curriculum gradually increases the difficulty by initializing
+          the agent to earlier states in each demonstration which are farther
+          away from goal. The result is a specialist policy capable of solving
+          the desired task from a narrow initial state distribution marked by
+          the dashed green lines. Note that some demonstrations are
+          "reverse-solved" earlier and this arises as a result of our
+          per-demonstration reverse curriculum which through ablations is shown
+          to be more efficient than alternatives.
+        </p>
+        <p>
+          On the right is the forward curriculum that is a simple adaption of
+          Prioritized Level Replay, which always prioritizes initial states not
+          from the demonstration, but from the original task that have high
+          learning potential. Learning potential is computed as a sum of a score
+          and a staleness weight. The score we assign an initial state is either
+          1, 2 or 3 based on the current policy's performance starting from that
+          state. We assign 1 if the initial state frequently receives nonzero
+          return, 2 if the initial state always receives zero return, and 3 if
+          the initial state sometimes receives nonzero return. The staleness
+          score further ensures we occasionally revisit previously seen initial
+          states and update the score appropriately. By prioritizing initial
+          states with high score + staleness, we frequently sample initial
+          states that have "signs of life," and aggressively sample them until
+          the agent can capably achieve high return from these initial states.
+          In general we observe that inital states with signs of life tend to be
+          close to the set of states from whch the policy is already achieving
+          high return on. Over the course of training, the forward curriculum
+          enables the initially weak policy to efficiently generalize to a much
+          larger initial state distribution.
+        </p>
+        <a class="anchor" id="results-a"></a>
+        <h2>Results</h2>
+        <p>TODO</p>
+      </section>
+      <!-- <section class="citation">
+        <h2>Bibtex</h2>
+        <pre><code>TODO</code></pre>
+      </section> -->
+      <!-- <section class="acknowledgements">
+        <h2>Acknowledgements</h2>
+        <p>
+          TODO
+        </p>
+      </section> -->
+    </main>
+  </body>
+</html>

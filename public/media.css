@@ -1,0 +1,14 @@
+.head-media {
+  text-align: center;
+}
+.head-media video {
+  width: 45%;
+}
+.media {
+  display: flex;
+  justify-content: space-around;
+}
+.media video {
+  width: 45%;
+  flex-shrink: 0;
+}
