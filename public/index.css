@@ -24,6 +24,7 @@ h1 {
 h2 {
   font-weight: 500;
   font-size: 1.75rem;
+  color: #3391e4
 }
 h3 {
   font-weight: 500;
@@ -31,7 +32,16 @@ h3 {
 }
 p {
   line-height: 1.5;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid #dedede;
+  margin: 1em 0;
+  padding: 0;
 }
 pre {
   background-color: #f5f5f5;
@@ -82,20 +92,20 @@ select {
 }
 .links li {
   box-sizing: border-box;
-  height: 3rem;
+  /* height: 3rem; */
   border-radius: 4px;
   align-items: center;
   display: inline-flex;
-  padding: 0rem 1rem;
+  padding: 0.6rem 0.75rem;
   color: white;
   vertical-align: middle;
   background-color: rgba(51,56, 68);
-  font-size: 1.25rem;
   border-width: 0px;
   border: 0px solid black;
   transition: all 0.2s;
   margin-right: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 1.2rem;
 }
 .links li:hover {
   background-color: rgb(34, 38, 49);
@@ -132,9 +142,12 @@ select {
 }
 
 span[blue] {
-  color: #4A93D3
+  color: #3391e4
 }
 
+section img {
+  width: 100%;
+}
 
 @media only screen and (max-width: 400px) {
   html {

@@ -6,7 +6,10 @@
       name="description"
       content="RFCL: Reverse Forward Curriculum Learning"
     />
-    <meta name="keywords" content="Curriculum, Reinforcement Learning, Deep Learning" />
+    <meta
+      name="keywords"
+      content="Curriculum, Reinforcement Learning, Deep Learning"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
       Reverse Forward Curriculum Learning for Extreme Demo Efficiency in RL
@@ -39,6 +42,10 @@
           ><span>Results</span>
           <div class="bar"></div
         ></a>
+        <a class="barWrapper" clear href="#task-visuals-a" id="bar5"
+          ><span>Task Visuals</span>
+          <div class="bar"></div
+        ></a>
       </div>
     </div>
     <main class="content">
@@ -46,7 +53,8 @@
         <h1 class="title">
           <span blue>RFCL: </span><span blue>R</span>everse
           <span blue>F</span>orward <span blue>C</span>urriculum
-          <span blue>L</span>earning for Extreme Demo Efficiency in RL
+          <span blue>L</span>earning for Extreme Sample and Demonstration
+          Efficiency in RL
         </h1>
         <!-- <h3>TODO</h3> -->
         <section class="authors">
@@ -56,12 +64,16 @@
         </section>
         <section class="links">
           <ul>
-            <!-- <a href="TODO" rel="noreferrer" target="_blank">
+            <a
+              href="https://openreview.net/pdf?id=w4rODxXsmM"
+              rel="noreferrer"
+              target="_blank"
+            >
               <li>
                 <span class="icon"> <img src="./public/paper.svg" /> </span
                 ><span>Paper</span>
               </li>
-            </a> -->
+            </a>
             <!-- <a
               href="TODO"
               rel="noreferrer"
@@ -72,8 +84,20 @@
                 ><span>Video</span>
               </li>
             </a> -->
-            <!-- <a
-              href="TODO"
+            <a
+              href="https://openreview.net/forum?id=w4rODxXsmM"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <li>
+                <span class="icon">
+                  <img src="./public/link.svg" />
+                </span>
+                <span>OpenReview</span>
+              </li>
+            </a>
+            <a
+              href="https://github.com/reverseforward-cl/code"
               rel="noreferrer"
               target="_blank"
             >
@@ -83,9 +107,23 @@
                 </span>
                 <span>Code</span>
               </li>
-            </a> -->
+            </a>
             <!-- <a><li>Video</li></a> -->
           </ul>
+        </section>
+        <hr />
+        <section>
+          <img src="./public/figures/figure_main.png" />
+          <img src="./public/figures/figure_main_hard.png" />
+          <p>
+            Our novel reverse forward curriculum learning (RFCL) algorithm
+            achieves much
+            <strong>higher sample and demonstration efficiency</strong> compared
+            to other model-free baselines, in addition to solving previously
+            unsolvable tasks (like PegInsertionSide and PlugCharger) from just
+            1-10 demonstrations and sparse rewards without much hyperparameter
+            tuning.
+          </p>
         </section>
         <a class="anchor" id="abstract-a"></a>
         <h2>Abstract</h2>
@@ -114,11 +152,6 @@
           learning-from-demonstration baselines, even solving previously
           unsolvable tasks that require high precision and control.
         </p>
-      </section>
-
-      <section class="head-media">
-        <br />
-        <p class="caption">TODO</p>
       </section>
       <a class="anchor" id="rfcl-a"></a>
       <section class="details">
@@ -187,12 +220,197 @@
         </p>
         <a class="anchor" id="results-a"></a>
         <h2>Results</h2>
-        <p>TODO</p>
+        <section>
+          <p>
+            We rigorously evaluate RFCL against several baselines, including
+            <a href="https://arxiv.org/abs/2302.02948" target="_blank">RLPD</a>
+            (state-of-the-art on Adroit at the time of writing),
+            <a href="https://arxiv.org/abs/2303.05479" target="_blank"
+              >Cal-QL</a
+            >
+            (state-of-the-art offline-to-online RL),
+            <a href="https://jumpstart-rl.github.io/" target="_blank">JSRL</a>
+            (recent reverse curriculum method), and
+            <a href="https://arxiv.org/abs/1709.10087">DAPG</a> (demonstration
+            augmented policy gradient). We benchmark across 22 tasks, with 3
+            from Adroit, 15 from MetaWorld, and 4 from ManiSkill2.
+          </p>
+          <img src="./public/figures/figure_main.png" />
+          <p>
+            The main results show the algorithm performance over time when using
+            sparse rewards and just 5 demonstrations. The shaded area shows the
+            95% confidence intervals over 5 seeds averaged across each task in
+            each of the three suites. RFCL significantly outperforms prior
+            methods. This is especially evident on harder tasks like
+            PegInsertionSide and PlugCharger from ManiSkill2, which are more
+            difficult due to their high initial state randomization and precise
+            manipulation requirements, see the
+            <a href="#task-visuals-a">visualizations</a> to see it visually.
+          </p>
+          <img src="./public/figures/figure_demo_ablation.png" />
+          <p>
+            We've seen the sample efficency earlier, to get a sense of the
+            demonstration efficiency we ablate on the number of demonstrations
+            given during training on the ManiSkill2 tasks. We benchmark on
+            ManiSkill2 as they are the most realistic tasks (high initial state
+            randomization, higher fidelity simulation). Our method RFCL again
+            significantly outperforms baselines in terms of demonstration
+            efficiency, being capable of solving environments from as little as
+            1 demonstration! Critically, we observe that the forward curriculum
+            is most helpful in the low demonstration regime, which can be
+            attributed to the fact that with fewer demonstrations, the reverse
+            curriculum trained policy is succesful on a even narrow set of
+            initial states, meaning initial state prioritization from the
+            forward curriculum is more crucial.
+          </p>
+          <!-- <p>Below is an animation of the success rate heatmap on a pointmaze which shows how the reverse forward curriculum improves the agent over time compared to ablations. The reverse curriculum enables very quick solving of the </p> -->
+          <div id="heatmaps">
+            <video autoplay="" muted="" loop="" controls>
+              <source
+                src="./public/videos/heatmap_animation_all_sr_12x12.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+        </section>
+        <a class="anchor" id="task-visuals-a"></a>
+        <section>
+          <h2>Task Visualizations</h2>
+          <p>
+            We visualize success and fail trajectories from our method, in
+            addition to what the initial state distribution looks like for
+            selected easy and hard tasks (click the button to switch views).
+          </p>
+          <div id="task-visualizations">
+            <p style="font-weight: 500; font-size: 1.2rem">
+              Hard Tasks (ManiSkill2 PlugCharger, ManiSkill2 PegInsertionSide)
+            </p>
+            <div id="hard-videos">
+              <div class="sample-videos">
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/2.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/3.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/4.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/fail.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="sample-videos">
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/2.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/3.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/4.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/fail.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div style="text-align: center">
+              <button id="visualize-hard-init-states">
+                Visualize Initial States
+              </button>
+            </div>
+            <p style="font-weight: 500; font-size: 1.2rem">
+              Easy Tasks (Adroit Door, Metaworld Assembly)
+            </p>
+            <div id="easy-videos">
+              <div class="sample-videos">
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/1.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/2.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/3.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/fail.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div style="text-align: center">
+              <button id="visualize-easy-init-states">
+                Visualize Initial States
+              </button>
+            </div>
+            <p style="font-weight: 500; font-size: 1.2rem">Easy Tasks</p>
+          </div>
+        </section>
       </section>
-      <!-- <section class="citation">
-        <h2>Bibtex</h2>
-        <pre><code>TODO</code></pre>
-      </section> -->
+      <section class="citation">
+        <h2>Citation</h2>
+        <pre><code>@article{anon-rfcl2023,
+  title={Reverse Forward Curriculum Learning for Extreme Sample and Demonstration Efficiency in RL},
+  author={Anonymous Authors},
+  url={https://openreview.net/forum?id=w4rODxXsmM},
+  year={2023}
+}</code></pre>
+      </section>
       <!-- <section class="acknowledgements">
         <h2>Acknowledgements</h2>
         <p>
