@@ -247,6 +247,7 @@
             manipulation requirements, see the
             <a href="#task-visuals-a">visualizations</a> to see it visually.
           </p>
+          <h3>Demonstration Ablations</h3>
           <img src="./public/figures/figure_demo_ablation.png" />
           <p>
             We've seen the sample efficency earlier, to get a sense of the
@@ -263,7 +264,8 @@
             initial states, meaning initial state prioritization from the
             forward curriculum is more crucial.
           </p>
-          <!-- <p>Below is an animation of the success rate heatmap on a pointmaze which shows how the reverse forward curriculum improves the agent over time compared to ablations. The reverse curriculum enables very quick solving of the </p> -->
+
+          <h3>Curriculum Ablations</h3>
           <div id="heatmaps">
             <video autoplay="" muted="" loop="" controls>
               <source
@@ -272,6 +274,20 @@
               />
             </video>
           </div>
+          <p>
+            Above is an animation of the success rate heatmap on a pointmaze
+            which shows how the reverse forward curriculum improves the agent
+            over time compared to using only a forward curriculum or no
+            curriculum. <span style="color: blue">Blue line</span> is the
+            demonstration heading to the
+            <span style="color: red">red goal.</span> To mimic hard exploration
+            problems in robotics tasks, this pointmaze is modified so that the
+            agent can only reset to states not covered by the demonstration, and
+            it may not collide with the walls.
+          </p>
+          <p>
+            The reverse curriculum enables very quick solving of the difficult exploration portion of the maze along the demonstration, before leveraging the forward curriculum to then generalize to other initial states.
+          </p>
         </section>
         <a class="anchor" id="task-visuals-a"></a>
         <section>
@@ -388,6 +404,38 @@
                 <video autoplay="" muted="" loop="">
                   <source
                     src="./public/videos/adroitdoor/fail.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="sample-videos">
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/success_0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/success_1.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/success_2.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/success_3.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/fail_0.mp4"
                     type="video/mp4"
                   />
                 </video>
